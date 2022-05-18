@@ -1,0 +1,6 @@
+*.jpg
+*.txt
+*.zip
+.idea
+image2model_image*
+__pycache__
