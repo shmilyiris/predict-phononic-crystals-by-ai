@@ -1,3 +1,6 @@
+data/
+results/
+*.pth
 *.jpg
 *.txt
 *.zip
