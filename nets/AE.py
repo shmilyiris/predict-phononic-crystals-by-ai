@@ -43,7 +43,7 @@ class BasicTConv(nn.Module):
 
 
 class AE(nn.Module):
-    def __init__(self, features_num=1000):
+    def __init__(self, features_num=1000, is_predict=False):
         super(AE, self).__init__()
 
         # Encoder
@@ -76,13 +76,20 @@ class AE(nn.Module):
         )
 
         self.features_num = features_num
+        self.flag = is_predict
 
     def forward(self, x):
-        x = self.make_five_conv(x)  # batch,128,128,1 -> batch,4,4,64
-        x = nn.Flatten()(x)  # batch,4,4,64 -> batch,1024
-        x = self.fc1(x)  # batch,1024 -> batch,700
-        features = x  # latent space features
-        x = self.fc2(x)  # batch,700 -> batch,1024 -> batch,4,4,64
-        x = self.make_five_dconv(x)  # batch,4,4,64 -> batch,128,128,1
-
-        return x, features
+        if not self.flag:
+            # 输入x->压缩->解压
+            x = self.make_five_conv(x)  # batch,128,128,1 -> batch,4,4,64
+            x = nn.Flatten()(x)  # batch,4,4,64 -> batch,1024
+            x = self.fc1(x)  # batch,1024 -> batch,700
+            features = x  # latent space features
+            x = self.fc2(x)  # batch,700 -> batch,1024 -> batch,4,4,64
+            x = self.make_five_dconv(x)  # batch,4,4,64 -> batch,128,128,1
+            return x, features
+        else:
+            # 输入x->解压
+            x = self.fc2(x)
+            x = self.make_five_dconv(x)
+            return x

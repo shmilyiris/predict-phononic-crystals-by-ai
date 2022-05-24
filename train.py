@@ -118,6 +118,7 @@ def train_ae():
 def train_mlp():
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
+    # 超参数
     epochs = 1000
     lr0 = 1e-3
     train_ratio = 0.8
@@ -182,10 +183,10 @@ def train_mlp():
             best_model_weights = copy.deepcopy(model.state_dict())
             flag = True
 
-        if flag == False and epoch > 100:
+        if flag == False and epoch > 200:
             # 100轮未得到best_loss连续3轮则结束训练
             cnt_no_increasing += 1
-            if cnt_no_increasing > 3:
+            if cnt_no_increasing > 10:
                 break
         else:
             cnt_no_increasing = 0

@@ -42,4 +42,7 @@ class MLPDataset(Dataset):
         return len(self.inputs)
 
     def __getitem__(self, idx):
-        return self.inputs[idx], self.outputs[idx]
+        if idx < len(self.outputs):
+            return self.inputs[idx], self.outputs[idx]
+        else:
+            return self.inputs[idx]

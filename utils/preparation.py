@@ -23,7 +23,8 @@ def generate_params():
 
 
 def generate_formula_eq2(datasize=3, startidx=1):
-    second_path = 'figures_simplify'
+    # second_path = 'figures_simplify'
+    second_path = 'predict_pre'
     L0 = 10
     for i in range(startidx, startidx + datasize):
         phi, n1, n2, n3, n4, c1, c2, c3, c4 = generate_params()
@@ -154,7 +155,7 @@ def generate_random(datasize=100000, startidx=200001):
 if __name__ == '__main__':
     size1 = 2500       # 用4阶公式生成的samples
     size2 = 5000        # 用随机公式生成的samples
-    size0 = 30000       # 用2阶公式生成samples
+    size0 = 10      # 用2阶公式生成samples
     generate_formula_eq2(size0, 1)
     # generate_formula_eq4(size1, 10001)
     # generate_random(size2, size1 + 1)

@@ -1,7 +1,7 @@
 import os
 import numpy as np
 # path = "D:\\University-Learning\\graduation_project\\AE+MLP\\results\\comsol_txt"
-path = '../results/comsol_txt'
+path = '../data/predict_txt'
 for idx, filename in enumerate(os.listdir(path)):
     obj = open(path + '\\' + filename, 'r')
     lines = obj.readlines()
@@ -81,9 +81,7 @@ for idx, filename in enumerate(os.listdir(path)):
     while len(bitmap) < feature_nums:
         bitmap.append(1)
 
-    file_dir = '../data/mlp_train/input_' + str(idx + 1) + '.txt'
-    # input_file = open(file_dir, 'w')
-    # input_file.write('\n')
+    file_dir = path + '\\' + filename
     np.savetxt(file_dir, np.array(bitmap))
     obj.close()
 

@@ -8,11 +8,14 @@ class MLP(nn.Module):
         self.input_nums = input_nums
         self.output_nums = output_nums
         self.mlp = nn.Sequential(
-            nn.Linear(input_nums, input_nums * 2),
+            # 1000 -> 1200 -> 1000 -> 1000 -> 700
+            nn.Linear(input_nums, int(input_nums * 1.2)),
             nn.ReLU(),
-            nn.Linear(input_nums * 2, input_nums * 2),
+            nn.Linear(int(input_nums * 1.2), input_nums),
             nn.ReLU(),
-            nn.Linear(input_nums * 2, output_nums),
+            nn.Linear(input_nums, input_nums),
+            nn.ReLU(),
+            nn.Linear(input_nums, output_nums),
             nn.ReLU(),
         )
 
